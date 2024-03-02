@@ -1,6 +1,6 @@
 {
   "name": "@litecanvas/plugin-asset-loader",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Plugin to help load external assets in litecanvas games",
   "author": "Luiz Bills <luizbills@pm.me>",
   "license": "MIT",
@@ -22,7 +22,7 @@
   "scripts": {
     "start": "esbuild src/index.js --bundle --watch --outfile=dist/dist.js --servedir=public",
     "build": "esbuild src/index.js --bundle --minify --outfile=dist/dist.js",
-    "postinstall": "npm run build"
+    "prepare": "npm run build"
   },
   "devDependencies": {
     "esbuild": "^0.20.1"

@@ -15,9 +15,9 @@ export default getScriptLoader = (engine, { set }) => {
           script.innerHTML = text
           script.dataset.src = src
           document.head.appendChild(script)
-          set("LOADING", engine.LOADING - 1)
         }
         if ("function" === typeof cb) cb(script)
+        set("LOADING", engine.LOADING - 1)
       })
   }
 }
