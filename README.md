@@ -37,7 +37,7 @@ function init() {
 function update(dt) {}
 
 function draw() {
-  // `LOADING` is an integer global variable
+  // `LOADING` is an global integer variable
   // it represents the number of assets that are loading
   if (LOADING > 0) {
     // do nothing while loading
