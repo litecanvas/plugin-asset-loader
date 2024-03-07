@@ -18,6 +18,7 @@ import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
   plugins: [pluginAssetLoader],
+  loop: { init, update, draw }
 })
 
 function init() {
@@ -57,6 +58,7 @@ import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
   plugins: [pluginAssetLoader],
+  loop: { init, update, draw }
 })
 
 function init() {
