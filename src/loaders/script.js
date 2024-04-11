@@ -1,5 +1,5 @@
 export default getScriptLoader = (engine, { set }) => {
-  return (src, cb) => {
+  return (src, callback) => {
     set("LOADING", engine.LOADING + 1)
     fetch(src)
       .then((response) => {
@@ -16,8 +16,8 @@ export default getScriptLoader = (engine, { set }) => {
           script.dataset.src = src
           document.head.appendChild(script)
         }
-        if ("function" === typeof cb) cb(script)
-        set("LOADING", engine.LOADING - 1)
+        callback && callback(script)
+        script && set("LOADING", engine.LOADING - 1)
       })
   }
 }

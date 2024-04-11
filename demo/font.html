@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,
+    user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <title>litecanvas Game</title>
+    <style type="text/css">
+      body {
+        background: #000;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@litecanvas/litecanvas/dist/dist.js"></script>
+    <script src="../dist/dist.js"></script>
+    <script>
+      litecanvas({
+        plugins: [pluginAssetLoader],
+      })
+
+      function init() {
+        loadFont(
+          "Pixelify Sans",
+          "https://fonts.gstatic.com/s/pixelifysans/v1/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TTp0E1fZZM.woff2",
+          function (res) {
+            if (!res) {
+              return alert("cannot load that font")
+            }
+            textfont("Pixelify Sans")
+          }
+        )
+      }
+
+      function draw() {
+        clear(0)
+        if (LOADING > 0) {
+          text(20, 20, "Loading...", 3, 32)
+        } else {
+          text(20, 20, "Font loaded!", 3, 32)
+        }
+      }
+    </script>
+  </body>
+</html>

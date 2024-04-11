@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,
+    user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <title>litecanvas Game</title>
+    <style type="text/css">
+      body {
+        background: #000;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@litecanvas/litecanvas/dist/dist.js"></script>
+    <script src="../dist/dist.js"></script>
+    <script>
+      litecanvas({
+        plugins: [pluginAssetLoader],
+      })
+
+      function init() {
+        images = {}
+
+        // load a random image
+        loadImage("https://random.imagecdn.app/64/64?foo", (image) => {
+          images.foo = image
+        })
+
+        // load another random image
+        loadImage("https://random.imagecdn.app/64/64?bar", (image) => {
+          images.bar = image
+        })
+      }
+
+      function update(dt) {}
+
+      function draw() {
+        clear()
+
+        // `LOADING` is an global integer variable
+        // it represents the number of assets that are loading
+        if (LOADING > 0) {
+          text(10, 10, "LOADING IMAGES...", 3, 24)
+          return
+        }
+
+        image(0, 0, images.foo)
+        image(0, 64, images.bar)
+      }
+    </script>
+  </body>
+</html>

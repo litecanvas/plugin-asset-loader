@@ -2,48 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,
-    user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0"
-    />
-    <title>litecanvas Game</title>
-    <style type="text/css">
-      body {
-        background: #000;
-        margin: 0;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>litecanvas Asset Loader</title>
   </head>
   <body>
-    <script src="https://unpkg.com/@litecanvas/litecanvas/dist/dist.js"></script>
-    <script src="../dist/dist.js"></script>
-    <script>
-      litecanvas({
-        plugins: [pluginAssetLoader],
-      })
-
-      function init() {
-        loadScript("https://code.jquery.com/jquery-3.7.1.min.js", (script) => {
-          if (!script) {
-            alert("cannot load jQuery")
-          }
-        })
-      }
-
-      function update(dt) {
-        if (LOADING > 0) return // do nothing while loading
-      }
-
-      function draw() {
-        clear(0)
-        if (LOADING > 0) {
-          text(20, 20, "Loading...", 3, 14)
-        } else {
-          const version = jQuery.fn.jquery
-          text(20, 20, "jQuery " + version + " loaded", 3, 18)
-        }
-      }
-    </script>
+    <ul>
+      <li><a href="script.html">load script</a></li>
+      <li><a href="image.html">load image</a></li>
+      <li><a href="font.html">load font</a></li>
+    </ul>
   </body>
 </html>

@@ -1,6 +1,6 @@
 # Asset Loader plugin for litecanvas
 
-Plugin to help load external assets in [litecanvas](https://github.com/litecanvas/engine) games.
+Plugin to help load external assets in [litecanvas](https://github.com/litecanvas/game-engine) games.
 
 ## Install
 
@@ -18,7 +18,7 @@ import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
   plugins: [pluginAssetLoader],
-  loop: { init, update, draw }
+  loop: { init, update, draw },
 })
 
 function init() {
@@ -50,6 +50,41 @@ function draw() {
 }
 ```
 
+### Loading font
+
+```js
+import litecanvas from "@litecanvas/litecanvas"
+import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
+
+litecanvas({
+  plugins: [pluginAssetLoader],
+  loop: { init, update, draw },
+})
+
+function init() {
+  loadFont(
+    "Pixelify Sans",
+    "https://fonts.gstatic.com/s/pixelifysans/v1/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TTp0E1fZZM.woff2",
+    function (res) {
+      console.log(res)
+      if (!res) {
+        return alert("cannot load that font")
+      }
+      textfont("Pixelify Sans")
+    }
+  )
+}
+
+function draw() {
+  clear(0)
+  if (LOADING > 0) {
+    text(20, 20, "Loading...", 3, 32)
+  } else {
+    text(20, 20, "Font loaded!", 3, 32)
+  }
+}
+```
+
 ### Loading JavaScript
 
 ```js
@@ -58,7 +93,7 @@ import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
   plugins: [pluginAssetLoader],
-  loop: { init, update, draw }
+  loop: { init, update, draw },
 })
 
 function init() {
