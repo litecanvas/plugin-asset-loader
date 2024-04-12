@@ -66,7 +66,6 @@ function init() {
     "Pixelify Sans",
     "https://fonts.gstatic.com/s/pixelifysans/v1/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TTp0E1fZZM.woff2",
     function (res) {
-      console.log(res)
       if (!res) {
         return alert("cannot load that font")
       }
