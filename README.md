@@ -77,9 +77,9 @@ function init() {
 function draw() {
   clear(0)
   if (LOADING > 0) {
-    text(20, 20, "Loading...", 3, 32)
+    text(20, 20, "Loading...")
   } else {
-    text(20, 20, "Font loaded!", 3, 32)
+    text(20, 20, "Font loaded!")
   }
 }
 ```
@@ -110,10 +110,10 @@ function update(dt) {
 function draw() {
   clear(0)
   if (LOADING > 0) {
-    text(20, 20, "Loading...", 3, 14)
+    text(20, 20, "Loading...", 3)
   } else {
     const version = jQuery.fn.jquery
-    text(20, 20, "jQuery " + version + " loaded", 3, 18)
+    text(20, 20, "jQuery " + version + " loaded")
   }
 }
 ```
