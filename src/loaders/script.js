@@ -1,10 +1,10 @@
-export default getScriptLoader = (engine, { set }) => {
+export default getScriptLoader = (engine) => {
   return (src, callback) => {
-    set("LOADING", engine.LOADING + 1)
+    engine.setvar("LOADING", engine.LOADING + 1)
     script = document.createElement("script")
     script.onload = () => {
       callback && callback(script)
-      set("LOADING", engine.LOADING - 1)
+      engine.setvar("LOADING", engine.LOADING - 1)
     }
     script.onerror = () => {
       callback && callback(null)
