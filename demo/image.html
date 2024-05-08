@@ -19,9 +19,9 @@
     <script src="https://unpkg.com/@litecanvas/litecanvas/dist/dist.js"></script>
     <script src="../dist/dist.js"></script>
     <script>
-      litecanvas({
-        plugins: [pluginAssetLoader],
-      })
+      litecanvas()
+
+      use(pluginAssetLoader) // load the plugin
 
       function init() {
         images = {}

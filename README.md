@@ -17,9 +17,10 @@ import litecanvas from "@litecanvas/litecanvas"
 import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
-  plugins: [pluginAssetLoader],
   loop: { init, update, draw },
 })
+
+use(pluginAssetLoader)
 
 function init() {
   images = {}
@@ -57,9 +58,10 @@ import litecanvas from "@litecanvas/litecanvas"
 import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
-  plugins: [pluginAssetLoader],
   loop: { init, update, draw },
 })
+
+use(pluginAssetLoader) // load the plugin
 
 function init() {
   loadFont(
@@ -91,9 +93,10 @@ import litecanvas from "@litecanvas/litecanvas"
 import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
-  plugins: [pluginAssetLoader],
   loop: { init, update, draw },
 })
+
+use(pluginAssetLoader)
 
 function init() {
   loadScript("https://code.jquery.com/jquery-3.7.1.min.js", (script) => {
