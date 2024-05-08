@@ -1,6 +1,6 @@
 {
   "name": "@litecanvas/plugin-asset-loader",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Plugin to help load external assets in litecanvas games",
   "author": "Luiz Bills <luizbills@pm.me>",
   "license": "MIT",
@@ -26,6 +26,9 @@
   },
   "devDependencies": {
     "esbuild": "^0.20.1"
+  },
+  "peerDependencies": {
+    "@litecanvas/litecanvas": "*"
   },
   "files": [
     "dist",
