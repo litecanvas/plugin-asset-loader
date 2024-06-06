@@ -26,14 +26,19 @@ function init() {
   images = {}
 
   // load a random image
-  loadImage("https://random.imagecdn.app/64/64?foo", (image) => {
+  loadImage("https://random.imagecdn.app/64/64?foo", (image, {}) => {
     images.foo = image
   })
 
   // load another random image
-  loadImage("https://random.imagecdn.app/64/64?bar", (image) => {
-    images.bar = image
-  })
+  loadImage(
+    "https://random.imagecdn.app/128/128?bar",
+    (image, { convertColors }) => {
+      images.original = image
+      // convert colors to litecanvas palette
+      images.converted = convertColors(image)
+    }
+  )
 }
 
 function update(dt) {}
@@ -46,8 +51,8 @@ function draw() {
     return
   }
 
-  image(0, 0, images.foo)
-  image(0, 64, images.bar)
+  image(0, 0, images.original)
+  image(0, 128, images.converted)
 }
 ```
 
