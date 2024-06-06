@@ -24,20 +24,19 @@
       use(pluginAssetLoader) // load the plugin
 
       function init() {
+        fontName = "Pixelify Sans"
         loadFont(
-          "Pixelify Sans",
+          fontName,
           "https://fonts.gstatic.com/s/pixelifysans/v1/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TTp0E1fZZM.woff2",
-          function (res) {
-            if (!res) {
-              return alert("cannot load that font")
-            }
-            textfont("Pixelify Sans")
+          function (font) {
+            if (!font) throw new Error("Failed to load font")
           }
         )
       }
 
       function draw() {
         clear(0)
+        textfont(fontName)
         if (LOADING > 0) {
           text(20, 20, "Loading...")
         } else {

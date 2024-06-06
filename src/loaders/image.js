@@ -3,8 +3,6 @@ export default getImageLoader = (engine, { colors }) => {
     convertColors,
   }
 
-  console.log(colors)
-
   return (src, callback) => {
     engine.setvar("LOADING", engine.LOADING + 1)
     const image = new Image()

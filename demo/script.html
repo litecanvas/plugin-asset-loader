@@ -25,9 +25,7 @@
 
       function init() {
         loadScript("https://code.jquery.com/jquery-3.7.1.min.js", (script) => {
-          if (!script) {
-            alert("cannot load jQuery")
-          }
+          if (!script) throw new Error("Failed to load script")
         })
       }
 

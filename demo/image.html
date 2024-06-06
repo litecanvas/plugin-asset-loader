@@ -27,13 +27,11 @@
         images = {}
 
         // load a image
-        loadImage(
-          "https://random.imagecdn.app/128/128?bar",
-          (image, { convertColors }) => {
-            images.original = image
-            images.converted = convertColors(image)
-          }
-        )
+        loadImage("mockup.png", (image, { convertColors }) => {
+          if (!image) throw new Error("Failed to load image")
+          images.original = image
+          images.converted = convertColors(image)
+        })
       }
 
       function update(dt) {}
@@ -49,7 +47,7 @@
         }
 
         image(0, 0, images.original)
-        image(0, 128, images.converted)
+        image(0, 172, images.converted)
       }
     </script>
   </body>

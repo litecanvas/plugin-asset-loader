@@ -34,6 +34,7 @@ function init() {
   loadImage(
     "https://random.imagecdn.app/128/128?bar",
     (image, { convertColors }) => {
+      if (!image) throw new Error("Failed to load image")
       images.original = image
       // convert colors to litecanvas palette
       images.converted = convertColors(image)
@@ -73,9 +74,7 @@ function init() {
     "Pixelify Sans",
     "https://fonts.gstatic.com/s/pixelifysans/v1/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TTp0E1fZZM.woff2",
     function (res) {
-      if (!res) {
-        return alert("cannot load that font")
-      }
+      if (!res) throw new Error("Failed to load font")
       textfont("Pixelify Sans")
     }
   )
@@ -105,9 +104,7 @@ use(pluginAssetLoader)
 
 function init() {
   loadScript("https://code.jquery.com/jquery-3.7.1.min.js", (script) => {
-    if (!script) {
-      alert("cannot load jQuery")
-    }
+    if (!script) throw new Error("Failed to load script")
   })
 }
 
