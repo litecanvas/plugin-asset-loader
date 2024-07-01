@@ -25,11 +25,6 @@ use(pluginAssetLoader)
 function init() {
   images = {}
 
-  // load a random image
-  loadImage("https://random.imagecdn.app/64/64?foo", (image, {}) => {
-    images.foo = image
-  })
-
   // load another random image
   loadImage(
     "https://random.imagecdn.app/128/128?bar",
