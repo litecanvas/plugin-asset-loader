@@ -28,11 +28,24 @@ function init() {
   // load another random image
   loadImage(
     "https://random.imagecdn.app/128/128?bar",
-    (image, { convertColors }) => {
+    (image, { convertColors, splitFrames }) => {
       if (!image) throw new Error("Failed to load image")
       images.original = image
-      // convert colors to litecanvas palette
-      images.converted = convertColors(image)
+
+      // `convertColors()` changes the colors of the image to use the litecanvas palette.
+      // images.converted = convertColors(image)
+
+      // `splitFrames()` splits the image into multiple frames.
+      // see https://github.com/litecanvas/plugin-asset-loader/tree/main/demo/images/spritesheet.png
+      /*
+      images.frames = splitFrames(
+        image,
+        frameWidth,
+        frameHeight,
+        margin,
+        spacing
+      )
+      */
     }
   )
 }
@@ -48,7 +61,8 @@ function draw() {
   }
 
   image(0, 0, images.original)
-  image(0, 128, images.converted)
+  // image(0, 128, images.converted)
+  // image(0, 256, images.frames[0])
 }
 ```
 

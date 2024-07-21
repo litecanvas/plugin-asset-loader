@@ -1,6 +1,7 @@
 export default getImageLoader = (engine, { colors }) => {
   const helpers = {
     convertColors,
+    splitFrames,
   }
 
   return (src, callback) => {
@@ -17,6 +18,54 @@ export default getImageLoader = (engine, { colors }) => {
     image.src = src
   }
 
+  /**
+   * @param {HTMLImageElement|OffscreenCanvas} image
+   * @param {number} frameWidth
+   * @param {number} frameHeight
+   * @param {number} [margin=0]
+   * @param {number} [spacing=0]
+   * @returns {OffscreenCanvas[]}
+   */
+  function splitFrames(
+    image,
+    frameWidth,
+    frameHeight,
+    margin = 0,
+    spacing = 0
+  ) {
+    const frames = []
+
+    const cols = Math.floor((image.width + spacing) / (frameWidth + spacing))
+    const rows = Math.floor((image.height + spacing) / (frameHeight + spacing))
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        const canvas = new OffscreenCanvas(frameWidth, frameHeight)
+        canvas
+          .getContext("2d")
+          .drawImage(
+            image,
+            margin + j * frameWidth + j * spacing,
+            margin + i * frameHeight + i * spacing,
+            frameWidth,
+            frameHeight,
+            0,
+            0,
+            frameWidth,
+            frameHeight
+          )
+        frames.push(canvas)
+      }
+    }
+
+    return frames
+  }
+
+  /**
+   * @param {HTMLImageElement|OffscreenCanvas} image
+   * @param {boolean} [alpha=false] set true to preserve each pixel opacity
+   * @returns {OffscreenCanvas}
+   */
   function convertColors(image, alpha = false) {
     const canvas = new OffscreenCanvas(image.width, image.height)
     const ctx = canvas.getContext("2d")
@@ -57,27 +106,26 @@ export default getImageLoader = (engine, { colors }) => {
    * Convert Hex color to RGB values
    *
    * @param {string} h the hex color
-   * @returns {Array}
+   * @returns {number[]}
    */
-  function hex2rgb(h) {
+  function hex2rgb(colorCode) {
     let r = 0,
       g = 0,
       b = 0
 
-    // 3 digits
-    if (h.length === 4) {
-      r = "0x" + h[1] + h[1]
-      g = "0x" + h[2] + h[2]
-      b = "0x" + h[3] + h[3]
-
-      // 6 digits
-    } else if (h.length === 7) {
-      r = "0x" + h[1] + h[2]
-      g = "0x" + h[3] + h[4]
-      b = "0x" + h[5] + h[6]
+    if (colorCode.length === 4) {
+      // 3 digits (e.g. #FFF)
+      r = "0x" + colorCode[1] + colorCode[1]
+      g = "0x" + colorCode[2] + colorCode[2]
+      b = "0x" + colorCode[3] + colorCode[3]
+    } else if (colorCode.length === 7) {
+      // 6 digits  (e.g. #EFEFEF)
+      r = "0x" + colorCode[1] + colorCode[2]
+      g = "0x" + colorCode[3] + colorCode[4]
+      b = "0x" + colorCode[5] + colorCode[6]
     }
 
-    return [r | 0, g | 0, b | 0]
+    return [~~r, ~~g, ~~b]
   }
 
   function rgb2rgb(rgb) {

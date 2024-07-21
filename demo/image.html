@@ -25,16 +25,33 @@
 
       function init() {
         images = {}
+        frames = null
+        animFrame = 0
+        animTime = 0
 
         // load a image
-        loadImage("mockup.png", (image, { convertColors }) => {
+        loadImage("./images/mockup.png", (image, { convertColors }) => {
           if (!image) throw new Error("Failed to load image")
           images.original = image
           images.converted = convertColors(image)
         })
+
+        // load a spritesheet
+        loadImage("./images/spritesheet.png", (image, { splitFrames }) => {
+          if (!image) throw new Error("Failed to load spritesheet")
+          frames = splitFrames(image, 64, 64, 16, 8)
+        })
       }
 
-      function update(dt) {}
+      function update(dt) {
+        if (LOADING > 0) return
+
+        if (animTime > 0.3) {
+          animFrame = (animFrame + 1) % frames.length
+          animTime = 0
+        }
+        animTime += dt
+      }
 
       function draw() {
         clear()
@@ -47,7 +64,10 @@
         }
 
         image(0, 0, images.original)
-        image(0, 172, images.converted)
+        image(0, images.original.height + 10, images.converted)
+
+        // animate the frames
+        image(0, 2 * images.original.height + 20, frames[animFrame])
       }
     </script>
   </body>
