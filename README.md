@@ -13,7 +13,7 @@ Plugin to help load external assets in [litecanvas](https://github.com/litecanva
 ### Loading images
 
 ```js
-import litecanvas from "@litecanvas/litecanvas"
+import litecanvas from "litecanvas"
 import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
@@ -69,7 +69,7 @@ function draw() {
 ### Loading font
 
 ```js
-import litecanvas from "@litecanvas/litecanvas"
+import litecanvas from "litecanvas"
 import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
@@ -102,7 +102,7 @@ function draw() {
 ### Loading JavaScript
 
 ```js
-import litecanvas from "@litecanvas/litecanvas"
+import litecanvas from "litecanvas"
 import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
