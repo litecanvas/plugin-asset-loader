@@ -1,4 +1,4 @@
-/*! Asset Loader plugin for litecanvas v0.6.0 by Luiz Bills | MIT Licensed */
+/*! Asset Loader plugin for litecanvas v0.6.1 by Luiz Bills | MIT Licensed */
 import getScriptLoader from "./loaders/script"
 import getImageLoader from "./loaders/image"
 import getFontLoader from "./loaders/font"
