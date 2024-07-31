@@ -90,7 +90,7 @@ function init() {
 }
 
 function draw() {
-  clear(0)
+  cls(0)
   if (LOADING > 0) {
     text(20, 20, "Loading...")
   } else {
@@ -122,7 +122,7 @@ function update(dt) {
 }
 
 function draw() {
-  clear(0)
+  cls(0)
   if (LOADING > 0) {
     text(20, 20, "Loading...", 3)
   } else {
