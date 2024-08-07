@@ -15,9 +15,8 @@
   "main": "src/index.js",
   "keywords": [
     "litecanvas",
-    "joystick",
-    "touch",
-    "gamedev"
+    "asset loader",
+    "assets"
   ],
   "scripts": {
     "dev": "esbuild src/index.js --bundle --watch --outfile=dist/dist.js --servedir=.",
