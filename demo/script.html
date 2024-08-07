@@ -24,8 +24,8 @@
       use(pluginAssetLoader) // load the plugin
 
       function init() {
-        loadScript("https://code.jquery.com/jquery-3.7.1.min.js", (script) => {
-          if (!script) throw new Error("Failed to load script")
+        loadScript("https://unpkg.com/jquery/dist/jquery.js", (script) => {
+          if (!script) throw "Failed to load script"
         })
       }
 
@@ -42,6 +42,18 @@
           text(20, 20, "jQuery " + version + " loaded")
         }
       }
+
+      listen("asset-load", (data) => {
+        console.log("Asset loaded successfully: ", data)
+      })
+
+      listen("asset-error", (data) => {
+        console.log("Error while loading asset: ", data)
+      })
+
+      listen("filter-asset", (script, data) => {
+        script.id = "litecanvas-" + data.id
+      })
     </script>
   </body>
 </html>

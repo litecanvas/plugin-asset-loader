@@ -21,7 +21,10 @@
     <script>
       litecanvas()
 
-      use(pluginAssetLoader) // load the plugin
+      // load the plugin
+      use(pluginAssetLoader, {
+        baseURL: location.origin + "/demo/images/",
+      })
 
       function init() {
         images = {}
@@ -30,15 +33,15 @@
         animTime = 0
 
         // load a image
-        loadImage("./images/mockup.png", (image, { convertColors }) => {
-          if (!image) throw new Error("Failed to load image")
+        loadImage("mockup.png", (image, { convertColors }) => {
+          if (!image) throw "Failed to load image"
           images.original = image
           images.converted = convertColors(image)
         })
 
         // load a spritesheet
-        loadImage("./images/spritesheet.png", (image, { splitFrames }) => {
-          if (!image) throw new Error("Failed to load spritesheet")
+        loadImage("spritesheet.png", (image, { splitFrames }) => {
+          if (!image) throw "Failed to load spritesheet"
           frames = splitFrames(image, 64, 64, 16, 8)
         })
       }
@@ -69,6 +72,14 @@
         // animate the frames
         image(0, 2 * images.original.height + 20, frames[animFrame])
       }
+
+      listen("asset-load", (data) => {
+        console.log("Asset loaded successfully: ", data)
+      })
+
+      listen("asset-error", (data) => {
+        console.log("Error while loading asset: ", data)
+      })
     </script>
   </body>
 </html>

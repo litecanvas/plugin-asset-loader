@@ -1,20 +1,40 @@
-export default getImageLoader = (engine, { colors }) => {
+export default getImageLoader = (
+  engine,
+  { colors, basename, prepareURL },
+  { crossOrigin }
+) => {
   const helpers = {
     convertColors,
     splitFrames,
   }
 
-  return (src, callback) => {
-    engine.setvar("LOADING", engine.LOADING + 1)
+  return async (src, callback) => {
+    src = prepareURL(src)
+
     const image = new Image()
-    image.crossOrigin = "anonymous"
+    const eventData = {
+      type: "image",
+      src,
+      id: basename(src),
+    }
+
+    image.crossOrigin = crossOrigin
+
+    engine.setvar("LOADING", engine.LOADING + 1)
+
     image.onload = () => {
       callback && callback(image, helpers)
+      eventData.image = image
+      engine.emit("asset-load", eventData)
       engine.setvar("LOADING", engine.LOADING - 1)
     }
     image.onerror = function () {
       callback && callback(null, helpers)
+      engine.emit("asset-error", eventData)
     }
+
+    engine.emit("filter-asset", image, eventData)
+
     image.src = src
   }
 

@@ -29,7 +29,7 @@
           fontName,
           "https://fonts.gstatic.com/s/pixelifysans/v1/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TTp0E1fZZM.woff2",
           function (font) {
-            if (!font) throw new Error("Failed to load font")
+            if (!font) throw "Failed to load font"
           }
         )
       }
@@ -43,6 +43,14 @@
           text(20, 20, "Font loaded!")
         }
       }
+
+      listen("asset-load", (data) => {
+        console.log("Asset loaded successfully: ", data)
+      })
+
+      listen("asset-error", (data) => {
+        console.log("Error while loading asset: ", data)
+      })
     </script>
   </body>
 </html>
