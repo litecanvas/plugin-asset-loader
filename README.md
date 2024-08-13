@@ -113,6 +113,7 @@ function draw() {
   if (LOADING > 0) {
     return text(20, 20, "Loading...", 3)
   }
+  text(20, 20, "Tap to play")
 }
 ```
 
