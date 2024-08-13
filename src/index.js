@@ -3,6 +3,7 @@ import getScriptLoader from "./loaders/script"
 import getImageLoader from "./loaders/image"
 import getFontLoader from "./loaders/font"
 import getSoundLoader from "./loaders/sound"
+import getJSONLoader from "./loaders/json"
 
 window.pluginAssetLoader = plugin
 
@@ -37,6 +38,7 @@ export function plugin(engine, helpers, config = {}) {
     loadImage: getImageLoader(engine, helpers, config),
     loadFont: getFontLoader(engine, helpers, config),
     loadSound: getSoundLoader(engine, helpers, config),
+    loadJSON: getJSONLoader(engine, helpers, config),
   }
 }
 

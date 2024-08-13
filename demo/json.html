@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,
+    user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <title>litecanvas Game</title>
+    <style type="text/css">
+      body {
+        background: #000;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/litecanvas/dist/dist.js"></script>
+    <script src="../dist/dist.js"></script>
+    <script>
+      litecanvas()
+
+      // load the plugin
+      use(pluginAssetLoader, {
+        baseURL: location.origin + "/demo/assets/",
+      })
+
+      function init() {
+        data = null
+
+        loadJSON("data.json", (json) => {
+          console.log(json)
+          data = json
+        })
+      }
+
+      function update(dt) {
+        if (LOADING > 0) return // do nothing while loading
+      }
+
+      function draw() {
+        cls(0)
+        if (LOADING > 0) {
+          return text(20, 20, "LOADING...")
+        }
+        text(10, 10, data.name)
+      }
+
+      listen("asset-load", (data) => {
+        console.log("Asset loaded successfully: ", data)
+      })
+
+      listen("asset-error", (data) => {
+        console.log("Error while loading asset: ", data)
+      })
+    </script>
+  </body>
+</html>
