@@ -117,8 +117,9 @@ function draw() {
 }
 ```
 
-> The loaded sound will be a `HTMLAudioElement` (https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement)
-> In addition to native methods, we also implemented: `stop()` and `restart()` to, respectively, stops and restarts a sound.
+> The loaded sound will be a `HTMLAudioElement` (https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement).
+> 
+> In addition to the native methods, we also implemented: `stop()` and `restart()` to, respectively, stops and restarts a sound.
 
 ### Loading fonts
 
