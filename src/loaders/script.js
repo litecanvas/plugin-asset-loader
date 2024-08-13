@@ -19,7 +19,7 @@ export default getScriptLoader = (
 
     script.onload = () => {
       callback && callback(script)
-      eventData.script = script
+      eventData.asset = script
       engine.emit("asset-load", eventData)
       engine.setvar("LOADING", engine.LOADING - 1)
     }

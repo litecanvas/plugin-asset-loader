@@ -66,6 +66,52 @@ function draw() {
 }
 ```
 
+### Loading sounds
+
+```js
+import litecanvas from "litecanvas"
+import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
+
+litecanvas({
+  loop: { init, update, draw },
+})
+
+use(pluginAssetLoader)
+
+function init() {
+  music = null
+
+  loadSound(
+    "https://opengameart.org/sites/default/files/preview_26.ogg",
+    (sound) => {
+      music = sound
+    }
+  )
+}
+
+// you must wait a user interaction to play sounds
+function tapped() {
+  if (LOADING > 0) {
+    return
+  }
+  if (music.paused) {
+    music.play()
+  } else {
+    music.stop()
+  }
+}
+
+function draw() {
+  cls(0)
+  if (LOADING > 0) {
+    return text(20, 20, "Loading...", 3)
+  }
+}
+```
+
+> The loaded sound will be a `HTMLAudioElement` (https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement)
+> In addition to native methods, we also implemented: `stop()` and `restart()` to, respectively, stops and restarts a sound.
+
 ### Loading fonts
 
 ```js
@@ -142,6 +188,10 @@ use(pluginAssetLoader, {
   // Sets the crossOrigin property for some assets
   // See: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin
   crossOrigin: string | null, // default: "anonymous"
+
+  // If `true` (default) load all sounds using "canplay" event.
+  // If `false` load all sounds using "oncanplaythrough" event.
+  allowSoundInterruptions: boolean,
 })
 ```
 

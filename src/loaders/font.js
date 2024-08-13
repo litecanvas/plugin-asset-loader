@@ -20,7 +20,7 @@ export default getFontLoader = (engine, { basename, prepareURL }) => {
       .load()
       .then((fontFace) => {
         callback && callback(fontFace)
-        eventData.fontFace = fontFace
+        eventData.asset = fontFace
         engine.emit("asset-load", eventData)
         engine.setvar("LOADING", engine.LOADING - 1)
       })

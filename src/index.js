@@ -2,6 +2,7 @@
 import getScriptLoader from "./loaders/script"
 import getImageLoader from "./loaders/image"
 import getFontLoader from "./loaders/font"
+import getSoundLoader from "./loaders/sound"
 
 window.pluginAssetLoader = plugin
 
@@ -15,6 +16,7 @@ export function plugin(engine, helpers, config = {}) {
   const defaults = {
     crossOrigin: "anonymous",
     baseURL: null,
+    allowSoundInterruptions: true,
   }
 
   config = Object.assign(defaults, config)
@@ -34,6 +36,7 @@ export function plugin(engine, helpers, config = {}) {
     loadScript: getScriptLoader(engine, helpers, config),
     loadImage: getImageLoader(engine, helpers, config),
     loadFont: getFontLoader(engine, helpers, config),
+    loadSound: getSoundLoader(engine, helpers, config),
   }
 }
 

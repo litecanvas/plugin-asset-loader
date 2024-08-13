@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,
+    user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <title>litecanvas Game</title>
+    <style type="text/css">
+      body {
+        background: #000;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="game"></canvas>
+    <button id="stop">Stop</button>
+    <button id="restart">Restart</button>
+
+    <script src="https://unpkg.com/litecanvas/dist/dist.js"></script>
+    <script src="../dist/dist.js"></script>
+    <script>
+      litecanvas({
+        width: 400,
+        autoscale: false,
+        canvas: document.getElementById("game"),
+      })
+
+      // load the plugin
+      use(pluginAssetLoader, {
+        baseURL: location.origin + "/demo/assets/",
+      })
+
+      let playing = false
+      let music
+
+      function init() {
+        loadSound("music.ogg", (sound) => {
+          music = sound
+        })
+
+        window.addEventListener("blur", () => {
+          if (music && playing) music.pause()
+        })
+
+        window.addEventListener("focus", () => {
+          if (music && playing) music.play()
+        })
+      }
+
+      function draw() {
+        cls(0)
+
+        // `LOADING` is an global integer variable
+        // it represents the number of assets that are loading
+        if (LOADING > 0) {
+          text(10, 10, "LOADING...")
+          return
+        }
+
+        text(10, 10, "TAP TO PLAY")
+      }
+
+      function tapped() {
+        if (LOADING > 0) {
+          return
+        }
+        music.play()
+        playing = true
+      }
+
+      listen("asset-load", (data) => {
+        console.log("Asset loaded successfully: ", data)
+      })
+
+      listen("asset-error", (data) => {
+        console.log("Error while loading asset: ", data)
+      })
+
+      document.querySelector("#restart").onclick = () => {
+        if (music) music.restart()
+      }
+      document.querySelector("#stop").onclick = () => {
+        if (music) music.stop()
+      }
+    </script>
+  </body>
+</html>

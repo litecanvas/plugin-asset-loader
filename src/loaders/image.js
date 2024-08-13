@@ -24,11 +24,11 @@ export default getImageLoader = (
 
     image.onload = () => {
       callback && callback(image, helpers)
-      eventData.image = image
+      eventData.asset = image
       engine.emit("asset-load", eventData)
       engine.setvar("LOADING", engine.LOADING - 1)
     }
-    image.onerror = function () {
+    image.onerror = () => {
       callback && callback(null, helpers)
       engine.emit("asset-error", eventData)
     }
