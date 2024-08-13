@@ -2,6 +2,13 @@
 
 Plugin to help load external assets in [litecanvas](https://github.com/litecanvas/game-engine) games.
 
+This plugin can load the following asset types:
+
+- [Images](#loading-images)
+- [Sounds](#loading-sounds)
+- [Fonts](#loading-fonts)
+- [JavaScript](#loading-javascript)
+
 ## Install
 
 **NPM**: `npm i @litecanvas/plugin-asset-loader`
