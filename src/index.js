@@ -1,4 +1,4 @@
-/*! Asset Loader plugin for litecanvas v0.8.1 by Luiz Bills | MIT Licensed */
+/*! Asset Loader plugin for litecanvas v0.8.2 by Luiz Bills | MIT Licensed */
 import getScriptLoader from "./loaders/script"
 import getImageLoader from "./loaders/image"
 import getFontLoader from "./loaders/font"
@@ -12,7 +12,7 @@ window.pluginAssetLoader = plugin
  * @param {LitecanvasPluginHelpers} helpers
  * @param {*} config
  */
-export function plugin(engine, helpers, config = {}) {
+export default function plugin(engine, helpers, config = {}) {
   const defaults = {
     crossOrigin: "anonymous",
     baseURL: null,
