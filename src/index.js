@@ -1,4 +1,4 @@
-/*! Asset Loader plugin for litecanvas v0.8.2 by Luiz Bills | MIT Licensed */
+/*! Asset Loader plugin for litecanvas v0.9.0 by Luiz Bills | MIT Licensed */
 import getScriptLoader from "./loaders/script"
 import getImageLoader from "./loaders/image"
 import getFontLoader from "./loaders/font"
@@ -17,6 +17,7 @@ export default function plugin(engine, helpers, config = {}) {
     crossOrigin: "anonymous",
     baseURL: null,
     allowSoundInterruptions: true,
+    ignoreErrors: false,
   }
 
   config = Object.assign(defaults, config)

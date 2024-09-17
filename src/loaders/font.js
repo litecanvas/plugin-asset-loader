@@ -1,4 +1,8 @@
-export default getFontLoader = (engine, { basename, prepareURL }) => {
+export default getFontLoader = (
+  engine,
+  { basename, prepareURL },
+  { ignoreErrors }
+) => {
   return async (fontName, src, callback) => {
     src = prepareURL(src)
 
@@ -25,6 +29,9 @@ export default getFontLoader = (engine, { basename, prepareURL }) => {
         engine.setvar("LOADING", engine.LOADING - 1)
       })
       .catch(() => {
+        if (!ignoreErrors) {
+          throw new Error("Failed to load " + src)
+        }
         callback && callback(null)
         engine.emit("asset-error", eventData)
       })

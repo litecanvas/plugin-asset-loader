@@ -1,7 +1,7 @@
 export default getSoundLoader = (
   engine,
   { basename, prepareURL },
-  { allowSoundInterruptions }
+  { allowSoundInterruptions, ignoreErrors }
 ) => {
   return async (src, callback) => {
     src = prepareURL(src)
@@ -14,6 +14,8 @@ export default getSoundLoader = (
 
     const sound = new Audio()
 
+    sound.id = eventData.id
+
     engine.setvar("LOADING", engine.LOADING + 1)
 
     sound[allowSoundInterruptions ? "oncanplay" : "oncanplaythrough"] = () => {
@@ -22,7 +24,11 @@ export default getSoundLoader = (
       engine.emit("asset-load", eventData)
       engine.setvar("LOADING", engine.LOADING - 1)
     }
-    image.onerror = () => {
+
+    sound.onerror = () => {
+      if (!ignoreErrors) {
+        throw new Error("Failed to load " + src)
+      }
       callback && callback(null)
       engine.emit("asset-error", eventData)
     }

@@ -118,7 +118,7 @@ function draw() {
 ```
 
 > The loaded sound will be a `HTMLAudioElement` (https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement).
-> 
+>
 > In addition to the native methods, we also implemented: `stop()` and `restart()` to, respectively, stops and restarts a sound.
 
 ### Loading fonts
@@ -201,6 +201,9 @@ use(pluginAssetLoader, {
   // If `true` (default) load all sounds using "canplay" event.
   // If `false` load all sounds using "oncanplaythrough" event.
   allowSoundInterruptions: boolean,
+
+  // If `false` (default) throws a error when a asset fails to load.
+  ignoreErrors: boolean,
 })
 ```
 

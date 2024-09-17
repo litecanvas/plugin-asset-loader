@@ -1,7 +1,7 @@
 export default getScriptLoader = (
   engine,
   { basename, prepareURL },
-  { crossOrigin }
+  { crossOrigin, ignoreErrors }
 ) => {
   return async (src, callback) => {
     src = prepareURL(src)
@@ -23,7 +23,11 @@ export default getScriptLoader = (
       engine.emit("asset-load", eventData)
       engine.setvar("LOADING", engine.LOADING - 1)
     }
+
     script.onerror = () => {
+      if (!ignoreErrors) {
+        throw new Error("Failed to load " + src)
+      }
       callback && callback(null)
       engine.emit("asset-error", eventData)
     }

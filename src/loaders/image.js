@@ -1,7 +1,7 @@
 export default getImageLoader = (
   engine,
   { colors, basename, prepareURL },
-  { crossOrigin }
+  { crossOrigin, ignoreErrors }
 ) => {
   const helpers = {
     convertColors,
@@ -19,6 +19,7 @@ export default getImageLoader = (
     }
 
     image.crossOrigin = crossOrigin
+    image.id = eventData.id
 
     engine.setvar("LOADING", engine.LOADING + 1)
 
@@ -28,7 +29,11 @@ export default getImageLoader = (
       engine.emit("asset-load", eventData)
       engine.setvar("LOADING", engine.LOADING - 1)
     }
+
     image.onerror = () => {
+      if (!ignoreErrors) {
+        throw new Error("Failed to load " + src)
+      }
       callback && callback(null, helpers)
       engine.emit("asset-error", eventData)
     }
