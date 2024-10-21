@@ -66,8 +66,11 @@
           return
         }
 
+        push()
+        scale(2)
         image(0, 0, images.original)
         image(0, images.original.height + 10, images.converted)
+        pop()
 
         // animate the frames
         image(0, 2 * images.original.height + 20, frames[animFrame])

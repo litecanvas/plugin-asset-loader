@@ -111,10 +111,12 @@ export default getImageLoader = (
       const currentcolor = [r, g, b]
       const key = currentcolor.join(",")
       // search in cache before
-      if (!cache.has(key)) {
-        cache.set(key, closestColor(currentcolor, colors))
+      let c = cache.get(key)
+      if (!c) {
+        c = closestColor(currentcolor, colors)
+        cache.set(key, c)
       }
-      const c = cache.get(key)
+
       const newcolor = c.startsWith("#") ? hex2rgb(c) : rgb2rgb(c)
       pixels[i] = newcolor[0]
       pixels[i + 1] = newcolor[1]
