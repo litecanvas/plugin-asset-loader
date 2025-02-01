@@ -8,12 +8,13 @@ This plugin can load the following asset types:
 - [Sounds](#loading-sounds)
 - [Fonts](#loading-fonts)
 - [JavaScript](#loading-javascript)
+- [JSON](#loading-json)
 
 ## Install
 
 **NPM**: `npm i @litecanvas/plugin-asset-loader`
 
-**CDN**: `https://unpkg.com/@litecanvas/plugin-asset-loader/dist/dist.js`
+**CDN**: `https://unpkg.com/@litecanvas/plugin-asset-loader/dist/dist.min.js`
 
 ## Usage
 
@@ -21,7 +22,7 @@ This plugin can load the following asset types:
 
 ```js
 import litecanvas from "litecanvas"
-import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
+import { pluginAssetLoader } from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
   loop: { init, update, draw },
@@ -77,7 +78,7 @@ function draw() {
 
 ```js
 import litecanvas from "litecanvas"
-import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
+import { pluginAssetLoader } from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
   loop: { init, update, draw },
@@ -125,7 +126,7 @@ function draw() {
 
 ```js
 import litecanvas from "litecanvas"
-import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
+import { pluginAssetLoader } from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
   loop: { init, update, draw },
@@ -158,7 +159,7 @@ function draw() {
 
 ```js
 import litecanvas from "litecanvas"
-import pluginAssetLoader from "@litecanvas/plugin-asset-loader"
+import { pluginAssetLoader } from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
   loop: { init, update, draw },
@@ -185,6 +186,58 @@ function draw() {
     text(20, 20, "jQuery " + version + " loaded")
   }
 }
+```
+
+### Loading JSON
+
+```js
+import litecanvas from "litecanvas"
+import { pluginAssetLoader } from "@litecanvas/plugin-asset-loader"
+
+let json
+
+litecanvas({
+  loop: { init, update, draw },
+})
+
+use(pluginAssetLoader)
+
+function init() {
+  loadScript("https://color.serialif.com/black", (jsonObject) => {
+    if (!jsonObject) throw "Failed to load script"
+    json = jsonObject
+  })
+}
+
+function update(dt) {
+  if (LOADING > 0) return // do nothing while loading
+}
+
+function draw() {
+  cls(0)
+  if (LOADING > 0) {
+    return text(20, 20, "Loading...", 3)
+  }
+
+  text(20, 20, `${json.base.keyword} = ${json.base.hex.value}`)
+}
+```
+
+## Modularity
+
+You can import only the chargers you want.
+
+Example to import **only** the image loader:
+
+```js
+import litecanvas from "litecanvas"
+import { pluginImageLoader } from "@litecanvas/plugin-asset-loader"
+
+litecanvas()
+
+use(pluginImageLoader)
+
+// ...
 ```
 
 ## Configuration
