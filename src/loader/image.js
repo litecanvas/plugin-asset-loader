@@ -38,7 +38,8 @@ export default function plugin(engine, { colors }, config = {}) {
       engine.setvar("LOADING", engine.LOADING + 1)
       image.crossOrigin = crossOrigin
 
-      image.onerror = () => {
+      image.onerror = (reason) => {
+        console.error(reason)
         const error = "Failed to load image from " + src
         if (!ignoreErrors) {
           throw new Error(error)

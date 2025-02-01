@@ -15,9 +15,11 @@ export default function plugin(engine, h, config = {}) {
   /**
    * @param {string} src
    * @param {(data:any?) => void} [callback]
-   * @returns {Promise<FontFace>}
+   * @param {RequestInit} [fetchOptions]
+   * @returns {Promise<any>}
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/RequestInit
    */
-  const loadJSON = async (src, callback) => {
+  const loadJSON = async (src, fetchOptions, callback) => {
     const { baseURL, ignoreErrors } = config
 
     src = prepareURL(src, baseURL)
@@ -31,7 +33,7 @@ export default function plugin(engine, h, config = {}) {
     engine.emit("filter-asset", null, eventData)
     engine.setvar("LOADING", engine.LOADING + 1)
 
-    const request = fetch(src)
+    const request = fetch(src, fetchOptions)
 
     request
       .then((res) => res.json())
@@ -41,7 +43,8 @@ export default function plugin(engine, h, config = {}) {
         engine.emit("asset-load", eventData)
         engine.setvar("LOADING", engine.LOADING - 1)
       })
-      .catch(() => {
+      .catch((reason) => {
+        console.error(reason)
         if (!ignoreErrors) {
           throw new Error("Failed to load JSON from " + src)
         }

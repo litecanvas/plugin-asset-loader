@@ -47,7 +47,8 @@ export default function plugin(engine, h, config = {}) {
         engine.emit("asset-load", eventData)
         engine.setvar("LOADING", engine.LOADING - 1)
       })
-      .catch(() => {
+      .catch((reason) => {
+        console.error(reason)
         if (!ignoreErrors) {
           throw new Error("Failed to load font from " + src)
         }

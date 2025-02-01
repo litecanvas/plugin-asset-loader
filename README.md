@@ -203,9 +203,13 @@ litecanvas({
 use(pluginAssetLoader)
 
 function init() {
-  loadScript("https://color.serialif.com/black", (jsonObject) => {
-    if (!jsonObject) throw "Failed to load script"
-    json = jsonObject
+  // see: https://developer.mozilla.org/en-US/docs/Web/API/RequestInit
+  const requestOptions = {}
+
+  // load the JSON from Dog API by kinduff
+  loadJSON("https://dogapi.dog/api/v2/facts", requestOptions, (res) => {
+    if (!res) throw "Failed to load JSON"
+    json = res
   })
 }
 
@@ -219,7 +223,7 @@ function draw() {
     return text(20, 20, "Loading...", 3)
   }
 
-  text(20, 20, `${json.base.keyword} = ${json.base.hex.value}`)
+  text(20, 20, json.data[0].attributes.body)
 }
 ```
 

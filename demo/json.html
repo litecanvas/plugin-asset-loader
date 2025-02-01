@@ -19,7 +19,7 @@
     <script src="https://unpkg.com/litecanvas/dist/dist.js"></script>
     <script src="../dist/dist.js"></script>
     <script>
-      let jsonString
+      let json
 
       litecanvas({})
 
@@ -29,8 +29,9 @@
       })
 
       function init() {
-        loadJSON("data.json", (jsonObject) => {
-          jsonString = JSON.stringify(jsonObject)
+        loadJSON("data.json", null, (res) => {
+          json = res
+          console.log(res)
         })
       }
 
@@ -44,7 +45,7 @@
           return
         }
 
-        text(10, 10, jsonString)
+        text(10, 10, "The Answer is " + json.answer)
       }
     </script>
   </body>

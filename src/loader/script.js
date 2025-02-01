@@ -34,7 +34,8 @@ export default function plugin(engine, h, config = {}) {
       engine.setvar("LOADING", engine.LOADING + 1)
       script.crossOrigin = crossOrigin
 
-      script.onerror = () => {
+      script.onerror = (reason) => {
+        console.error(reason)
         if (!ignoreErrors) {
           throw new Error("Failed to load " + src)
         }
