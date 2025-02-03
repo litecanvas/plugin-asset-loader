@@ -11,6 +11,8 @@ export default function plugin(engine, h, config = {}) {
   config = Object.assign({}, defaults, config)
 
   engine.setvar("LOADING", engine.LOADING || 0)
+  engine.setvar("ASSETS", engine.ASSETS || {})
+  engine.ASSETS["script"] = {}
 
   /**
    * @param {string} src
@@ -19,6 +21,7 @@ export default function plugin(engine, h, config = {}) {
    */
   const loadScript = async (src, callback) => {
     const { baseURL, ignoreErrors, crossOrigin } = config
+    const id = basename(src)
 
     src = prepareURL(src, baseURL)
 
@@ -27,7 +30,7 @@ export default function plugin(engine, h, config = {}) {
       asset: script,
       type: "script",
       src,
-      id: basename(src),
+      id,
     }
 
     return new Promise((resolve) => {
@@ -44,6 +47,7 @@ export default function plugin(engine, h, config = {}) {
       }
 
       script.onload = () => {
+        engine.ASSETS["script"][id] = script
         if (callback) callback(script)
         engine.emit("asset-load", eventData)
         engine.setvar("LOADING", engine.LOADING - 1)

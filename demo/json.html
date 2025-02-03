@@ -29,7 +29,7 @@
       })
 
       function init() {
-        loadJSON("data.json", null, (res) => {
+        loadJSON("data.json", (res) => {
           json = res
           console.log(res)
         })

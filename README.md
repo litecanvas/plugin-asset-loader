@@ -207,10 +207,14 @@ function init() {
   const requestOptions = {}
 
   // load the JSON from Dog API by kinduff
-  loadJSON("https://dogapi.dog/api/v2/facts", requestOptions, (res) => {
-    if (!res) throw "Failed to load JSON"
-    json = res
-  })
+  loadJSON(
+    "https://dogapi.dog/api/v2/facts",
+    (res) => {
+      if (!res) throw "Failed to load JSON"
+      json = res
+    },
+    requestOptions // optional
+  )
 }
 
 function update(dt) {

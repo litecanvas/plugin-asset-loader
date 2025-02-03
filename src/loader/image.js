@@ -11,6 +11,8 @@ export default function plugin(engine, { colors }, config = {}) {
   config = Object.assign({}, defaults, config)
 
   engine.setvar("LOADING", engine.LOADING || 0)
+  engine.setvar("ASSETS", engine.ASSETS || {})
+  engine.ASSETS["image"] = {}
 
   /**
    * @param {string} src
@@ -23,6 +25,7 @@ export default function plugin(engine, { colors }, config = {}) {
       splitFrames,
       convertColors: createColorConveter(colors),
     }
+    const id = basename(src)
 
     src = prepareURL(src, baseURL)
 
@@ -31,7 +34,7 @@ export default function plugin(engine, { colors }, config = {}) {
       asset: image,
       type: "image",
       src,
-      id: basename(src),
+      id,
     }
 
     return new Promise((resolve) => {
@@ -49,7 +52,9 @@ export default function plugin(engine, { colors }, config = {}) {
       }
 
       image.onload = () => {
+        engine.ASSETS["image"][id] = image
         if (callback) callback(image, helpers)
+
         engine.emit("asset-load", eventData)
         engine.setvar("LOADING", engine.LOADING - 1)
         resolve(image)

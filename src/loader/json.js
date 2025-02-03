@@ -11,6 +11,8 @@ export default function plugin(engine, h, config = {}) {
   config = Object.assign({}, defaults, config)
 
   engine.setvar("LOADING", engine.LOADING || 0)
+  engine.setvar("ASSETS", engine.ASSETS || {})
+  engine.ASSETS["json"] = {}
 
   /**
    * @param {string} src
@@ -19,25 +21,28 @@ export default function plugin(engine, h, config = {}) {
    * @returns {Promise<any>}
    * @see https://developer.mozilla.org/en-US/docs/Web/API/RequestInit
    */
-  const loadJSON = async (src, fetchOptions, callback) => {
+  const loadJSON = async (src, callback, fetchOptions) => {
     const { baseURL, ignoreErrors } = config
+    const id = basename(src)
 
     src = prepareURL(src, baseURL)
 
     const eventData = {
       type: "json",
       src,
-      id: basename(src),
+      id,
     }
 
     engine.emit("filter-asset", null, eventData)
     engine.setvar("LOADING", engine.LOADING + 1)
+    engine.ASSETS["json"] = {}
 
     const request = fetch(src, fetchOptions)
 
     request
       .then((res) => res.json())
       .then((data) => {
+        ASSETS["json"][id] = data
         eventData.json = data
         if (callback) callback(data)
         engine.emit("asset-load", eventData)

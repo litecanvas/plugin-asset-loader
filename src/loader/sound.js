@@ -11,6 +11,8 @@ export default function plugin(engine, h, config = {}) {
   config = Object.assign({}, defaults, config)
 
   engine.setvar("LOADING", engine.LOADING || 0)
+  engine.setvar("ASSETS", engine.ASSETS || {})
+  engine.ASSETS["sound"] = {}
 
   /**
    * @param {string} src
@@ -20,6 +22,7 @@ export default function plugin(engine, h, config = {}) {
   const loadSound = async (src, callback) => {
     const { crossOrigin, ignoreErrors, allowSoundInterruptions, baseURL } =
       config
+    const id = basename(src)
 
     src = prepareURL(src, baseURL)
 
@@ -28,7 +31,7 @@ export default function plugin(engine, h, config = {}) {
       asset: sound,
       type: "sound",
       src,
-      id: basename(src),
+      id,
     }
 
     return new Promise((resolve) => {
@@ -46,6 +49,7 @@ export default function plugin(engine, h, config = {}) {
 
       sound[allowSoundInterruptions ? "oncanplay" : "oncanplaythrough"] =
         () => {
+          engine.ASSETS["sound"][id] = sound
           if (callback) callback(sound)
           engine.emit("asset-load", eventData)
           engine.setvar("LOADING", engine.LOADING - 1)

@@ -11,6 +11,8 @@ export default function plugin(engine, h, config = {}) {
   config = Object.assign({}, defaults, config)
 
   engine.setvar("LOADING", engine.LOADING || 0)
+  engine.setvar("ASSETS", engine.ASSETS || {})
+  engine.ASSETS["font"] = {}
 
   /**
    *
@@ -21,6 +23,7 @@ export default function plugin(engine, h, config = {}) {
    */
   const loadFont = async (fontName, src, callback) => {
     const { baseURL, ignoreErrors } = config
+    const id = basename(src)
 
     src = prepareURL(src, baseURL)
 
@@ -30,7 +33,7 @@ export default function plugin(engine, h, config = {}) {
       type: "font",
       fontName,
       src,
-      id: basename(src),
+      id,
     }
 
     engine.emit("filter-asset", fontFace, eventData)
@@ -43,6 +46,7 @@ export default function plugin(engine, h, config = {}) {
 
     loader
       .then((fontFace) => {
+        ASSETS["font"][id] = fontFace
         if (callback) callback(fontFace)
         engine.emit("asset-load", eventData)
         engine.setvar("LOADING", engine.LOADING - 1)
