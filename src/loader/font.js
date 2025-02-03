@@ -40,7 +40,7 @@ export default function plugin(engine, h, config = {}) {
 
     document.fonts.add(fontFace)
 
-    engine.setvar("LOADING", engine.LOADING + 1)
+    engine.setvar("LOADING", engine.LOADING++)
 
     const loader = fontFace.load()
 

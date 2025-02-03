@@ -13,10 +13,10 @@ export default function plugin(engine) {
    */
   const load = (callback) => {
     return new Promise((resolve, reject) => {
-      engine.setvar("LOADING", engine.LOADING + 1)
+      engine.setvar("LOADING", ++engine.LOADING)
 
       const _resolve = (value) => {
-        engine.setvar("LOADING", engine.LOADING - 1)
+        engine.setvar("LOADING", --engine.LOADING)
         return resolve(value)
       }
 

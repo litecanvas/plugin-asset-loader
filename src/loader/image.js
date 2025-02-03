@@ -38,7 +38,7 @@ export default function plugin(engine, { colors }, config = {}) {
     }
 
     return new Promise((resolve) => {
-      engine.setvar("LOADING", engine.LOADING + 1)
+      engine.setvar("LOADING", engine.LOADING++)
       image.crossOrigin = crossOrigin
 
       image.onerror = (reason) => {

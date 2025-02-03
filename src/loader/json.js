@@ -34,7 +34,7 @@ export default function plugin(engine, h, config = {}) {
     }
 
     engine.emit("filter-asset", null, eventData)
-    engine.setvar("LOADING", engine.LOADING + 1)
+    engine.setvar("LOADING", engine.LOADING++)
     engine.ASSETS["json"] = {}
 
     const request = fetch(src, fetchOptions)

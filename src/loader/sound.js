@@ -35,7 +35,7 @@ export default function plugin(engine, h, config = {}) {
     }
 
     return new Promise((resolve) => {
-      engine.setvar("LOADING", engine.LOADING + 1)
+      engine.setvar("LOADING", engine.LOADING++)
       sound.crossOrigin = crossOrigin
 
       sound.onerror = (reason) => {
