@@ -34,7 +34,7 @@ export default function plugin(engine, h, config = {}) {
     }
 
     engine.emit("filter-asset", null, eventData)
-    engine.setvar("LOADING", engine.LOADING++)
+    engine.setvar("LOADING", ++engine.LOADING)
     engine.ASSETS["json"] = {}
 
     const request = fetch(src, fetchOptions)
@@ -46,7 +46,7 @@ export default function plugin(engine, h, config = {}) {
         eventData.json = data
         if (callback) callback(data)
         engine.emit("asset-load", eventData)
-        engine.setvar("LOADING", engine.LOADING - 1)
+        engine.setvar("LOADING", --engine.LOADING)
       })
       .catch((reason) => {
         console.error(reason)

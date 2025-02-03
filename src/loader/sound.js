@@ -52,7 +52,7 @@ export default function plugin(engine, h, config = {}) {
           engine.ASSETS["sound"][id] = sound
           if (callback) callback(sound)
           engine.emit("asset-load", eventData)
-          engine.setvar("LOADING", engine.LOADING - 1)
+          engine.setvar("LOADING", --engine.LOADING)
           resolve(sound)
         }
 

@@ -34,7 +34,7 @@ export default function plugin(engine, h, config = {}) {
     }
 
     return new Promise((resolve) => {
-      engine.setvar("LOADING", engine.LOADING++)
+      engine.setvar("LOADING", ++engine.LOADING)
       script.crossOrigin = crossOrigin
 
       script.onerror = (reason) => {
@@ -50,7 +50,7 @@ export default function plugin(engine, h, config = {}) {
         engine.ASSETS["script"][id] = script
         if (callback) callback(script)
         engine.emit("asset-load", eventData)
-        engine.setvar("LOADING", engine.LOADING - 1)
+        engine.setvar("LOADING", --engine.LOADING)
         resolve(script)
       }
 

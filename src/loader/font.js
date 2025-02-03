@@ -40,7 +40,7 @@ export default function plugin(engine, h, config = {}) {
 
     document.fonts.add(fontFace)
 
-    engine.setvar("LOADING", engine.LOADING++)
+    engine.setvar("LOADING", ++engine.LOADING)
 
     const loader = fontFace.load()
 
@@ -49,7 +49,7 @@ export default function plugin(engine, h, config = {}) {
         ASSETS["font"][id] = fontFace
         if (callback) callback(fontFace)
         engine.emit("asset-load", eventData)
-        engine.setvar("LOADING", engine.LOADING - 1)
+        engine.setvar("LOADING", --engine.LOADING)
       })
       .catch((reason) => {
         console.error(reason)
