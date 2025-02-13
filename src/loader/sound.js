@@ -1,5 +1,5 @@
 import "litecanvas"
-import { basename, prepareURL, defaults } from "../utils"
+import { basename, prepareURL, defaults, modLoading } from "../utils"
 
 /**
  * @param {LitecanvasInstance} engine
@@ -35,7 +35,7 @@ export default function plugin(engine, h, config = {}) {
     }
 
     return new Promise((resolve) => {
-      engine.setvar("LOADING", engine.LOADING++)
+      modLoading(engine, 1)
       sound.crossOrigin = crossOrigin
 
       sound.onerror = (reason) => {
@@ -52,7 +52,7 @@ export default function plugin(engine, h, config = {}) {
           engine.ASSETS["sound"][id] = sound
           if (callback) callback(sound)
           engine.emit("asset-load", eventData)
-          engine.setvar("LOADING", --engine.LOADING)
+          modLoading(engine, -1)
           resolve(sound)
         }
 

@@ -1,5 +1,5 @@
 import "litecanvas"
-import { basename, prepareURL, defaults } from "../utils"
+import { basename, prepareURL, defaults, modLoading } from "../utils"
 
 /**
  * @param {LitecanvasInstance} engine
@@ -10,7 +10,6 @@ import { basename, prepareURL, defaults } from "../utils"
 export default function plugin(engine, h, config = {}) {
   config = Object.assign({}, defaults, config)
 
-  engine.setvar("LOADING", engine.LOADING || 0)
   engine.setvar("ASSETS", engine.ASSETS || {})
   engine.ASSETS["script"] = {}
 
@@ -34,7 +33,7 @@ export default function plugin(engine, h, config = {}) {
     }
 
     return new Promise((resolve) => {
-      engine.setvar("LOADING", ++engine.LOADING)
+      modLoading(engine, 1)
       script.crossOrigin = crossOrigin
 
       script.onerror = (reason) => {
@@ -50,7 +49,7 @@ export default function plugin(engine, h, config = {}) {
         engine.ASSETS["script"][id] = script
         if (callback) callback(script)
         engine.emit("asset-load", eventData)
-        engine.setvar("LOADING", --engine.LOADING)
+        modLoading(engine, -1)
         resolve(script)
       }
 

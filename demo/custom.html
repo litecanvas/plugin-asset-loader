@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,
+    user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <title>litecanvas Game</title>
+    <style type="text/css">
+      body {
+        background: #000;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/litecanvas/dist/dist.js"></script>
+    <script src="../dist/dist.js"></script>
+    <script>
+      litecanvas({})
+
+      // load the plugin
+      use(pluginAssetLoader)
+
+      function init() {
+        load((resolve) => {
+          setTimeout(resolve, 2000)
+        })
+
+        load((resolve) => {
+          setTimeout(resolve, 4000)
+        })
+
+        load((resolve) => {
+          setTimeout(resolve, 6000)
+        })
+      }
+
+      function draw() {
+        cls(0)
+
+        // `LOADING` is an global integer variable
+        // it represents the number of assets that are loading
+        if (LOADING > 0) {
+          text(10, 10, "LOADING PROGRESS: " + LOADING + "/3")
+          return
+        }
+
+        text(10, 10, "DONE!!")
+      }
+    </script>
+  </body>
+</html>

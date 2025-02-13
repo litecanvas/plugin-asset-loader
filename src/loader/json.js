@@ -1,5 +1,5 @@
 import "litecanvas"
-import { basename, prepareURL, defaults } from "../utils"
+import { basename, prepareURL, defaults, modLoading } from "../utils"
 
 /**
  * @param {LitecanvasInstance} engine
@@ -10,7 +10,6 @@ import { basename, prepareURL, defaults } from "../utils"
 export default function plugin(engine, h, config = {}) {
   config = Object.assign({}, defaults, config)
 
-  engine.setvar("LOADING", engine.LOADING || 0)
   engine.setvar("ASSETS", engine.ASSETS || {})
   engine.ASSETS["json"] = {}
 
@@ -34,7 +33,7 @@ export default function plugin(engine, h, config = {}) {
     }
 
     engine.emit("filter-asset", null, eventData)
-    engine.setvar("LOADING", ++engine.LOADING)
+    modLoading(engine, 1)
     engine.ASSETS["json"] = {}
 
     const request = fetch(src, fetchOptions)
@@ -46,7 +45,7 @@ export default function plugin(engine, h, config = {}) {
         eventData.json = data
         if (callback) callback(data)
         engine.emit("asset-load", eventData)
-        engine.setvar("LOADING", --engine.LOADING)
+        modLoading(engine, -1)
       })
       .catch((reason) => {
         console.error(reason)
