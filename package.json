@@ -26,10 +26,10 @@
     "prepare": "npm run build"
   },
   "devDependencies": {
-    "esbuild": "^0.24.2"
+    "esbuild": "^0.25.0"
   },
   "peerDependencies": {
-    "litecanvas": "*"
+    "litecanvas": "latest"
   },
   "files": [
     "dist",
