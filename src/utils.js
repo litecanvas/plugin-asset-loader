@@ -1,3 +1,5 @@
+import "litecanvas"
+
 /**
  * Returns the file name (without extension) of a path.
  *
@@ -41,4 +43,13 @@ export const defaults = {
   allowSoundInterruptions: true,
   /** @type {boolean?} */
   ignoreErrors: false,
+}
+
+/**
+ * @param {LitecanvasInstance} engine
+ * @param {number} value
+ */
+export const modLoading = (engine, value) => {
+  const key = "LOADING"
+  engine.setvar(key, ~~engine[key] + ~~value)
 }
