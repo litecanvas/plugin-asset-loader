@@ -10,7 +10,6 @@ import { basename, prepareURL, defaults, modLoading } from "../utils"
 export default function plugin(engine, h, config = {}) {
   config = Object.assign({}, defaults, config)
 
-  engine.setvar("LOADING", engine.LOADING || 0)
   engine.setvar("ASSETS", engine.ASSETS || {})
   engine.ASSETS["sound"] = {}
 
