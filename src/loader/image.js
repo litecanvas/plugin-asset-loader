@@ -7,7 +7,7 @@ import { basename, prepareURL, defaults, modLoading } from "../utils"
  * @param {typeof defaults} config
  * @returns {object}
  */
-export default function plugin(engine, { colors }, config = {}) {
+export default function plugin(engine, {}, config = {}) {
   config = Object.assign({}, defaults, config)
 
   engine.setvar("ASSETS", engine.ASSETS || {})
@@ -22,7 +22,7 @@ export default function plugin(engine, { colors }, config = {}) {
     const { baseURL, ignoreErrors, crossOrigin } = config
     const helpers = {
       splitFrames,
-      convertColors: createColorConveter(colors),
+      convertColors: createColorConveter(engine.COLORS),
     }
     const id = basename(src)
 
