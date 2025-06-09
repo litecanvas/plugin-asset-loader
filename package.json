@@ -1,6 +1,6 @@
 {
   "name": "@litecanvas/plugin-asset-loader",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "Plugin to help load assets for litecanvas games",
   "author": "Luiz Bills <luizbills@pm.me>",
   "license": "MIT",

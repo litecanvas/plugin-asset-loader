@@ -3,14 +3,13 @@ import { basename, prepareURL, defaults, modLoading } from "../utils"
 
 /**
  * @param {LitecanvasInstance} engine
- * @param {LitecanvasPluginHelpers} h
  * @param {typeof defaults} config
  * @returns {object}
  */
-export default function plugin(engine, h, config = {}) {
+export default function plugin(engine, config = {}) {
   config = Object.assign({}, defaults, config)
 
-  engine.setvar("ASSETS", engine.ASSETS || {})
+  engine.def("ASSETS", engine.ASSETS || {})
   engine.ASSETS["font"] = {}
 
   /**
@@ -45,7 +44,7 @@ export default function plugin(engine, h, config = {}) {
 
     loader
       .then((fontFace) => {
-        ASSETS["font"][id] = fontFace
+        engine.ASSETS["font"][id] = fontFace
         if (callback) callback(fontFace)
         engine.emit("asset-load", eventData)
         modLoading(engine, -1)

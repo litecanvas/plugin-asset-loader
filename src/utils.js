@@ -51,5 +51,5 @@ export const defaults = {
  */
 export const modLoading = (engine, value) => {
   const key = "LOADING"
-  engine.setvar(key, ~~engine[key] + ~~value)
+  engine.def(key, ~~engine[key] + ~~value)
 }

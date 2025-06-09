@@ -10,10 +10,9 @@ import {
 
 /**
  * @param {LitecanvasInstance} engine
- * @param {LitecanvasPluginHelpers} _
  * @param {typeof defaults} [config]
  */
-export default function plugin(engine, _, config = {}) {
+export default function plugin(engine, config = {}) {
   engine.use(pluginFontLoader, config)
   engine.use(pluginImageLoader, config)
   engine.use(pluginScriptLoader, config)

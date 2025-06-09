@@ -3,14 +3,13 @@ import { basename, prepareURL, defaults, modLoading } from "../utils"
 
 /**
  * @param {LitecanvasInstance} engine
- * @param {LitecanvasPluginHelpers} h
  * @param {typeof defaults} config
  * @returns {object}
  */
-export default function plugin(engine, {}, config = {}) {
+export default function plugin(engine, config = {}) {
   config = Object.assign({}, defaults, config)
 
-  engine.setvar("ASSETS", engine.ASSETS || {})
+  engine.def("ASSETS", engine.ASSETS || {})
   engine.ASSETS["image"] = {}
 
   /**
@@ -20,9 +19,10 @@ export default function plugin(engine, {}, config = {}) {
    */
   const loadImage = async (src, callback) => {
     const { baseURL, ignoreErrors, crossOrigin } = config
+    const colors = engine.stat(5)
     const helpers = {
       splitFrames,
-      convertColors: createColorConveter(engine.COLORS),
+      convertColors: createColorConveter(colors),
     }
     const id = basename(src)
 
