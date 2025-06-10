@@ -9,6 +9,7 @@ import { basename, prepareURL, defaults, modLoading } from "../utils"
 export default function plugin(engine, config = {}) {
   config = Object.assign({}, defaults, config)
 
+  modLoading(engine, 0)
   engine.def("ASSETS", engine.ASSETS || {})
   engine.ASSETS["image"] = {}
 

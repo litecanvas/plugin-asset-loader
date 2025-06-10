@@ -6,6 +6,9 @@ import { modLoading } from "../utils"
  * @returns {object}
  */
 export default function plugin(engine) {
+  modLoading(engine, 0)
+  engine.def("ASSETS", engine.ASSETS || {})
+
   /**
    * @param {(resolve:(value?:any)=>void,reject:(reason?:any)=>void)=>void} callback
    * @returns {Promise<any>}
