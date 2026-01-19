@@ -226,7 +226,7 @@ function draw() {
 
 ## Modularity
 
-You can import only the chargers you want.
+You can import only the loaders you want.
 
 Example to import **only** the image loader:
 
