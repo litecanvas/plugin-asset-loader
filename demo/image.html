@@ -33,10 +33,9 @@
         animTime = 0
 
         // load a image
-        loadImage("mockup.png", (image, { convertColors }) => {
+        loadImage("mockup.png", (image) => {
           if (!image) throw "Failed to load image"
           images.original = image
-          images.converted = convertColors(image)
         })
 
         // load a spritesheet
@@ -49,6 +48,7 @@
       function update(dt) {
         if (LOADING > 0) return
 
+        // animate the frames
         if (animTime > 0.3) {
           animFrame = (animFrame + 1) % frames.length
           animTime = 0
@@ -69,10 +69,9 @@
         push()
         scale(2)
         image(0, 0, images.original)
-        image(0, images.original.height + 10, images.converted)
 
         // animate the frames
-        image(0, 2 * images.original.height + 20, frames[animFrame])
+        image(0, images.original.height + 20, frames[animFrame])
         pop()
       }
 

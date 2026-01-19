@@ -24,6 +24,8 @@
       // load the plugin
       use(pluginAssetLoader)
 
+      const TOTAL = 3
+
       function init() {
         load((resolve) => {
           setTimeout(resolve, 2000)
@@ -39,16 +41,20 @@
       }
 
       function draw() {
-        cls(0)
-
         // `LOADING` is an global integer variable
         // it represents the number of assets that are loading
         if (LOADING > 0) {
-          text(10, 10, "LOADING PROGRESS: " + LOADING + "/3")
+          cls(0)
+          text(
+            10,
+            10,
+            "LOADING PROGRESS: " + round((1 - LOADING / TOTAL) * 100) + "%"
+          )
           return
         }
 
-        text(10, 10, "DONE!!")
+        cls(1)
+        text(10, 10, "LOADING PROGRESS: " + "100% DONE!")
       }
     </script>
   </body>

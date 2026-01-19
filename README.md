@@ -25,7 +25,7 @@ import litecanvas from "litecanvas"
 import { pluginAssetLoader } from "@litecanvas/plugin-asset-loader"
 
 litecanvas({
-  loop: { init, update, draw },
+  loop: { init, draw },
 })
 
 use(pluginAssetLoader)
@@ -36,29 +36,23 @@ function init() {
   // load another random image
   loadImage(
     "https://random.imagecdn.app/128/128?bar",
-    (image, { convertColors, splitFrames }) => {
+    (image, { splitFrames }) => {
       if (!image) throw "Failed to load image"
-      images.original = image
 
-      // `convertColors()` changes the colors of the image to use the litecanvas palette.
-      // images.converted = convertColors(image)
+      images.original = image
 
       // `splitFrames()` splits the image into multiple frames.
       // see https://github.com/litecanvas/plugin-asset-loader/tree/main/demo/images/spritesheet.png
-      /*
       images.frames = splitFrames(
         image,
-        frameWidth,
-        frameHeight,
-        margin,
-        spacing
+        64, // frame width
+        64, // frame height
+        0, // margin around
+        0 // spacing between
       )
-      */
     }
   )
 }
-
-function update(dt) {}
 
 function draw() {
   // `LOADING` is an global integer variable
@@ -69,8 +63,7 @@ function draw() {
   }
 
   image(0, 0, images.original)
-  // image(0, 128, images.converted)
-  // image(0, 256, images.frames[0])
+  image(0, 144, images.frames[2])
 }
 ```
 
