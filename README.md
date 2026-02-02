@@ -10,6 +10,10 @@ This plugin can load the following asset types:
 - [JavaScript](#loading-javascript)
 - [JSON](#loading-json)
 
+<!-- prettier-ignore -->
+> [!TIP]
+> **This plugin is automatically loaded on Litecanvas playground.**
+
 ## Install
 
 **NPM**: `npm i @litecanvas/plugin-asset-loader`
